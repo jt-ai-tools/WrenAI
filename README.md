@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  <b>English</b> | <a href="README_zh_TW.md">繁體中文</a>
+</p>
+
+<p align="center">
   <a aria-label="Follow us on X" href="https://x.com/getwrenai">
     <img alt="" src="https://img.shields.io/badge/-@getwrenai-blue?style=for-the-badge&logo=x&logoColor=white&labelColor=gray&logoWidth=20">
   </a>
