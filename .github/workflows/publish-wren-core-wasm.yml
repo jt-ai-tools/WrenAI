@@ -22,6 +22,7 @@ permissions:
 
 jobs:
   build-and-publish:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     name: Build WASM + publish to npm
     runs-on: ubuntu-latest
     # Required by the npm Trusted Publisher config (Environment name: npm).

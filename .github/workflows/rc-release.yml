@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   create-rc:
-    if: ${{ github.repository == 'Canner/WrenAI' }}
+    if: ${{ github.repository == 'Canner/WrenAI' && (github.repository == 'Canner/WrenAI') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -126,7 +126,7 @@ jobs:
 
   publish-wren-core-py:
     needs: create-rc
-    if: inputs.component == 'wren-core-py'
+    if: ${{ github.repository == 'Canner/WrenAI' && (inputs.component == 'wren-core-py') }}
     uses: ./.github/workflows/publish-wren-core-py.yml
     with:
       version: ${{ needs.create-rc.outputs.pypi_version }}
@@ -137,7 +137,7 @@ jobs:
 
   publish-wren:
     needs: create-rc
-    if: inputs.component == 'wren'
+    if: ${{ github.repository == 'Canner/WrenAI' && (inputs.component == 'wren') }}
     uses: ./.github/workflows/publish-wren.yml
     with:
       version: ${{ needs.create-rc.outputs.pypi_version }}
@@ -148,7 +148,7 @@ jobs:
 
   publish-wren-core-wasm:
     needs: create-rc
-    if: inputs.component == 'wren-core-wasm'
+    if: ${{ github.repository == 'Canner/WrenAI' && (inputs.component == 'wren-core-wasm') }}
     # RC publishes use the token-based variant. The OIDC variant is reserved
     # for stable releases driven by release-please.yml — npm only allows one
     # Trusted Publisher per package.
@@ -162,7 +162,7 @@ jobs:
 
   publish-wren-langchain:
     needs: create-rc
-    if: inputs.component == 'wren-langchain'
+    if: ${{ github.repository == 'Canner/WrenAI' && (inputs.component == 'wren-langchain') }}
     uses: ./.github/workflows/publish-wren-langchain.yml
     with:
       version: ${{ needs.create-rc.outputs.pypi_version }}
@@ -173,7 +173,7 @@ jobs:
 
   publish-wren-pydantic:
     needs: create-rc
-    if: inputs.component == 'wren-pydantic'
+    if: ${{ github.repository == 'Canner/WrenAI' && (inputs.component == 'wren-pydantic') }}
     uses: ./.github/workflows/publish-wren-pydantic.yml
     with:
       version: ${{ needs.create-rc.outputs.pypi_version }}
@@ -184,7 +184,7 @@ jobs:
 
   create-release:
     needs: [create-rc, publish-wren-core-py, publish-wren, publish-wren-core-wasm, publish-wren-langchain, publish-wren-pydantic]
-    if: always() && needs.create-rc.result == 'success' && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled')
+    if: ${{ github.repository == 'Canner/WrenAI' && (always() && needs.create-rc.result == 'success' && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled')) }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

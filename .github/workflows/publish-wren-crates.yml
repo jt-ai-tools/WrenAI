@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   build-and-publish:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     name: Build + publish crates to crates.io
     runs-on: ubuntu-latest
     # Required by the crates.io Trusted Publisher config (Environment name:

@@ -185,6 +185,7 @@ jobs:
         run: python -c "import wren_core; print(wren_core.__file__)"
 
   publish:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     name: Publish to ${{ inputs.pypi_target }}
     needs: [build-wheels, build-sdist, smoke-test]
     runs-on: ubuntu-latest

@@ -58,6 +58,7 @@ jobs:
           path: core/wren/dist/
 
   publish:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     name: Publish to ${{ inputs.pypi_target }}
     needs: build
     runs-on: ubuntu-latest

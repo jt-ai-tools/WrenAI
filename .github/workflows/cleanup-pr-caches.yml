@@ -25,6 +25,7 @@ permissions: {}
 
 jobs:
   cleanup:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     name: Delete merge-ref caches
     runs-on: ubuntu-latest
     permissions:

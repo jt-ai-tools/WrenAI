@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   release-please:
-    if: ${{ github.repository == 'Canner/WrenAI' }}
+    if: ${{ github.repository == 'Canner/WrenAI' && (github.repository == 'Canner/WrenAI') }}
     runs-on: ubuntu-latest
     outputs:
       wren-core-py--release_created: ${{ steps.release.outputs['core/wren-core-py--release_created'] }}
@@ -69,7 +69,7 @@ jobs:
 
   publish-wren-core-py:
     needs: release-please
-    if: needs.release-please.outputs['wren-core-py--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-core-py--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren-core-py.yml
     with:
       version: ${{ needs.release-please.outputs['wren-core-py--version'] }}
@@ -83,7 +83,7 @@ jobs:
   # succeeded, so we never bump to a version that failed to publish.
   sync-wren-core-py-lock:
     needs: [release-please, publish-wren-core-py]
-    if: needs.release-please.outputs['wren-core-py--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-core-py--release_created'] == 'true') }}
     uses: ./.github/workflows/sync-wren-core-py-lock.yml
     with:
       version: ${{ needs.release-please.outputs['wren-core-py--version'] }}
@@ -93,7 +93,7 @@ jobs:
 
   publish-wren:
     needs: release-please
-    if: needs.release-please.outputs['wren--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren.yml
     with:
       version: ${{ needs.release-please.outputs['wren--version'] }}
@@ -104,7 +104,7 @@ jobs:
 
   publish-wren-core-wasm:
     needs: release-please
-    if: needs.release-please.outputs['wren-core-wasm--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-core-wasm--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren-core-wasm.yml
     with:
       version: ${{ needs.release-please.outputs['wren-core-wasm--version'] }}
@@ -118,7 +118,7 @@ jobs:
   # safe here. Same pattern as the publish jobs above.
   publish-wren-langchain:
     needs: release-please
-    if: needs.release-please.outputs['wren-langchain--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-langchain--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren-langchain.yml
     with:
       version: ${{ needs.release-please.outputs['wren-langchain--version'] }}
@@ -129,7 +129,7 @@ jobs:
 
   publish-wren-pydantic:
     needs: release-please
-    if: needs.release-please.outputs['wren-pydantic--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-pydantic--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren-pydantic.yml
     with:
       version: ${{ needs.release-please.outputs['wren-pydantic--version'] }}
@@ -144,7 +144,7 @@ jobs:
   # wren-semantic-core output is sufficient.
   publish-wren-crates:
     needs: release-please
-    if: needs.release-please.outputs['wren-semantic-core--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-semantic-core--release_created'] == 'true') }}
     uses: ./.github/workflows/publish-wren-crates.yml
     with:
       version: ${{ needs.release-please.outputs['wren-semantic-core--version'] }}
@@ -161,7 +161,7 @@ jobs:
   # engine change out of PyPI and npm.
   release-bindings-after-core:
     needs: release-please
-    if: needs.release-please.outputs['wren-semantic-core--release_created'] == 'true'
+    if: ${{ github.repository == 'Canner/WrenAI' && (needs.release-please.outputs['wren-semantic-core--release_created'] == 'true') }}
     uses: ./.github/workflows/release-bindings-after-core.yml
     with:
       version: ${{ needs.release-please.outputs['wren-semantic-core--version'] }}

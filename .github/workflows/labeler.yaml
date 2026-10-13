@@ -4,6 +4,7 @@ on:
 
 jobs:
   labeler:
+    if: ${{ github.repository == 'Canner/WrenAI' }}
     permissions:
       contents: read
       pull-requests: write
